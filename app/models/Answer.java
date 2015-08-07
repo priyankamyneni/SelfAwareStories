@@ -30,7 +30,7 @@ public class Answer extends BaseEntity{
 	
 	public String unAnswer;
 	
-	//public Integer points;
+	public Integer points;
 	
 
 }

@@ -1,25 +1,25 @@
-package controllers;
+/*package controllers;
 
-import java.io.File;
-import java.io.IOException;
-
+import models.Admin;
 import models.College;
-import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;
-import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Result;
+import bean.AdminBean;
 import bean.CollegeBean;
-
-import com.google.common.io.Files;
 
 public class CollegeController extends Controller{
 	
 	public static final Form<CollegeBean> collegeBean = Form.form(CollegeBean.class);
+	public static final Form<AdminBean> adminBean = Form.form(AdminBean.class);
 	
 public Result college(){
+	
+	
+	Admin admin=Admin.find.where().eq("id",adminBean.get().id ).findUnique();
+	return ok(views.html.college.render(admin));
 		
-		return ok(views.html.college.render());
+		//return ok(views.html.college.render());
 	
 	}
 public Result saveCollege()
@@ -31,7 +31,7 @@ public Result saveCollege()
 	  return ok("college saved");
 }
 
-	/*public Result uploadFile(){
+	public Result uploadFile(){
 		College upload=new College();
 		play.mvc.Http.MultipartFormData body = request().body().asMultipartFormData();
 		DynamicForm form = Form.form().bindFromRequest();
@@ -53,7 +53,8 @@ public Result saveCollege()
 		 upload.save();
 		System.out.println(file.getPath());
 		return ok("ok");
-	}*/
+	}
 	
 	
 }
+*/

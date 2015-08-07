@@ -21,7 +21,25 @@ public class AdminBean implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+public String firstName;
 	
+	public String lastName;
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
 	int match=0;
 	public Long id;
 	
@@ -92,13 +110,21 @@ public class AdminBean implements Serializable{
 			obj.userName = this.userName;
 
 		}
+		if (this.firstName != null) {
+			obj.firstName = this.firstName;
+
+		}
+		if (this.lastName != null) {
+			obj.lastName = this.lastName;
+
+		}
 		if (this.password != null) {
 			obj.password = this.password;
 		}
-		/*if (this.email != null) {
+		if (this.email != null) {
 			obj.email = this.email;
 
-		}*/
+		}
 		
 		
 		
@@ -130,7 +156,7 @@ public class AdminBean implements Serializable{
      if(adminEmail == null && match!=0  ){
          obj.email = this.email.trim().toLowerCase();
         // obj.role = Role.ADMIN;
-         //obj.save();
+         obj.save();
          
      }
      

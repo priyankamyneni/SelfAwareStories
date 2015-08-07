@@ -2,9 +2,10 @@ package bean;
 
 import java.io.Serializable;
 
-import models.AppUser;
+import models.Admin;
+
 import models.College;
-import play.Logger;
+
 
 public class CollegeBean implements Serializable{
 
@@ -64,6 +65,10 @@ public class CollegeBean implements Serializable{
 		if (this.address != null) {
 			obj.address = this.address;
 		}
+		
+		Admin admin=Admin.find.where().eq("id", this.adminId).findUnique();
+		admin.collegeList.add(obj);
+		admin.update();
 		
 		
 		return obj;

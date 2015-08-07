@@ -21,7 +21,9 @@ import com.avaje.ebean.Model;
 public class Admin extends BaseEntity{
 	@Id
 	public Long id;
+public String firstName;
 	
+	public String lastName;
 
 	@Column(unique = true)
 	@Email

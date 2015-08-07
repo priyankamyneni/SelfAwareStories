@@ -8,14 +8,14 @@ GET     /                           controllers.Application.index()
 GET     /user                           controllers.AppUserController.signUp()
 POST    /register                   controllers.AppUserController.register()
 
-GET     /admin                          controllers.AdminController.adminSignUp()
+GET    /admin                          controllers.AdminController.adminSignUp()
 POST    /adminregister                   controllers.AdminController.adminRegister()
 
 GET     /adminlogin                         controllers.AdminController.adminLogin()
 POST    /adminsignin                   controllers.AdminController.adminSignIn()
 
-GET     /college                         controllers.CollegeController.college()
-POST    /savecollege                  controllers.CollegeController.saveCollege()
+GET     /college                         controllers.AdminController.college()
+POST    /savecollege                  controllers.AdminController.saveCollege()
 
 GET     /sv                          controllers.VideoController.video()
 POST     /video                         controllers.VideoController.insertVideo()
@@ -39,6 +39,8 @@ GET    /login                             controllers.LoginController.login()
 POST    /signin                           controllers.LoginController.verify()
 GET      /welcome/:username                         controllers.AppUserController.welcome(username:String)
 
+GET      /delete/:collegeId                             controllers.AdminController.deleteCollege(collegeId: Long)
+POST      /update/:collegeId                             controllers.AdminController.updateCollege(collegeId: Long)
 #GET     /college                          controllers.CollegeController.college()
 #POST    /upload                 controllers.CollegeController.uploadFile()
 

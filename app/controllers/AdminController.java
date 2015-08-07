@@ -3,19 +3,21 @@ package controllers;
 import java.util.List;
 
 import models.Admin;
-import models.AppUser;
+import models.College;
 import play.Logger;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import util.Constants;
 import bean.AdminBean;
+import bean.CollegeBean;
 import bean.LoginBean;
 
 public class AdminController extends Controller{
 
 public static final Form<AdminBean> adminBean = Form.form(AdminBean.class);
 public static final Form<LoginBean> loginForm = Form.form(LoginBean.class);
+public static final Form<CollegeBean> collegeBean = Form.form(CollegeBean.class);
 	
 	public Result adminSignUp(){
 		
@@ -45,34 +47,29 @@ public static final Form<LoginBean> loginForm = Form.form(LoginBean.class);
 		
 			
 			String message = null;
-		        Logger.info(Constants.LOGGED_IN_USER_ID+"<--------------cvalue");
-		       session().remove(Constants.LOGGED_IN_USER_ID);
-		        //session().remove(Constants.LOGGED_IN_USER_ROLE);
+		       
+		     //  session().remove(Constants.LOGGED_IN_USER_ID);
+	
 		         Form<LoginBean> loginFilledForm = loginForm.bindFromRequest();
 		        LoginBean loginBean = loginFilledForm.get();
+		        session().put("userName",loginBean.userName);
 		      
 		             try{
-		                 //LoginBean loginBean = loginFilledForm.get();
-		                 Logger.debug(loginBean.email+"-------"+loginBean.password);
-		               List<Admin> emailList = Admin.find.where().eq("email",loginBean.email.trim().toLowerCase()).findList();
-		                    Logger.debug(emailList.toString()+"-------");
+		                 
+		                 Logger.debug(loginBean.userName+"-------"+loginBean.password);
+		               List<Admin> userList = Admin.find.where().eq("userName",loginBean.userName.trim().toLowerCase()).findList();
+		                    Logger.debug(userList.toString()+"-------");
 		                   
-		                    if(emailList.size()==1){
-		                    	Logger.info(emailList.get(0).matchPassword(loginBean.password)+"==");
+		                    if(userList.size()==1){
+		                    	Logger.info(userList.get(0).matchPassword(loginBean.password)+"==");
 		                    	
-		                         if (emailList.get(0).matchPassword(loginBean.password.trim())) {
+		                         if (userList.get(0).matchPassword(loginBean.password.trim())) {
 		                   // if(emailList !=null && BCrypt.checkpw(loginBean.password,email.password)){	 
 		                        	 
-		                session(Constants.LOGGED_IN_USER_ID, emailList.get(0).id + "");
-		                //session(Constants.LOGGED_IN_USER_ROLE, emailList.get(0).role+ "");
-		               
-		               /*f(emailList.get(0)=loginBean.){
-		                    //String url = session(Constants.LOGGED_IN_USER_ID);
-		                    //return ok(views.html.profile.coach_dashboard.render(emailList.get(0)));
-		                    return ok(" admin logged in");
-		                }*/
+		                session(Constants.LOGGED_IN_USER_ID, userList.get(0).id + "");
+		                Logger.info(Constants.LOGGED_IN_USER_ID+"<--------------cvalue");
 		                        	 //return ok("logged in");
-		                return redirect(routes.CollegeController.college());		                //return ok( emailList.get(0).role+" "+"Dashboard");
+		                return redirect(routes.AdminController.college());		                
 		                         }
 		                    
 		                   
@@ -85,10 +82,81 @@ public static final Form<LoginBean> loginForm = Form.form(LoginBean.class);
 		                 return ok(message);
 		             }
 		             //return ok("hii");
-		             return redirect(routes.CollegeController.college());
+		            // return redirect(routes.AdminController.college());
+		             return ok(views.html.adminpannel.render());
 		             }
-			
-			
+			public static Admin getLoggedInUser(){
+				
+				Long id = null;
+		        final String idStr = session(Constants.LOGGED_IN_USER_ID);
+		        Logger.debug(idStr);
+		        if (idStr != null) {
+		            id = Long.parseLong(idStr);           
+		            return Admin.find.byId(id);
+		        }
+		        /* final Long id = Long.parseLong(idStr); */
+		        // return AppUser.find.byId(id);  
+		        //return null;
+				return null;
+				
+			}
+	public Result college(){
+		final Admin admin=AdminController.getLoggedInUser();
+		Logger.debug(admin+"");
+		final Form<CollegeBean> filledForm = collegeBean.bindFromRequest();
+		  CollegeBean bean = filledForm.get();
+		
+		
+		Admin admin1=Admin.find.where().eq("id",bean.adminId).findUnique();
+	//	Logger.info(session().get("adminId")+"-------");
+		//return ok(views.html.college.render(admin));
+		Logger.info(admin+":::::");
+			return ok(views.html.college.render(admin));
+		
+		}
+	public Result saveCollege()
+	{
+		final Form<CollegeBean> filledForm = collegeBean.bindFromRequest();
+		  CollegeBean bean = filledForm.get();
+		  College obj=bean.toEntity();
+		  obj.save();
+		  return ok(views.html.show.render());
+	}
+	public Result deleteCollege(Long collegeId){
+		 
+		College clg = College.find.byId(collegeId);
+   	 Admin ad = Admin.find.where().in("collegeList", clg).findUnique();
+   	 Logger.info("admin....."+ad.id);
+   	 ad.collegeList.remove(clg);
+   	
+   	 ad.update();
+   //`	clg.update();
+   	//clg.delete();
+    	// List<Patients> patient=Patients.find.orderBy().asc("patientId").findList();
+    	 return ok("deleted");
+    
+    
+}
+	public Result updateCollege(Long collegeId){
+		final Form<CollegeBean> filledForm = collegeBean.bindFromRequest();
+		  CollegeBean bean = filledForm.get();
+		College clg=College.find.byId(collegeId);
+		// Admin ad = Admin.find.where().in("collegeList", clg).findUnique();
+		// ad.collegeList.remove(clg);
+		   	
+	   Logger.info("------------dfdsfsdfsfsx-"+bean.collegeName);
+		// College obj=bean.toEntity();
+		//College obj=new College();
+		//obj.id=bean.id;
+		clg.name=bean.collegeName;
+		clg.address=bean.address;
+		// Logger.info(clg.address+"{{{{{{{");
+		// Logger.info(clg.id+":::::");
+		clg.update();
+		return ok(views.html.show.render());
+	}
+
+
 	
 	
 }

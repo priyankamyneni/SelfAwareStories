@@ -5,6 +5,8 @@
 
 create table admin (
   id                        bigserial not null,
+  first_name                varchar(255),
+  last_name                 varchar(255),
   email                     varchar(255),
   user_name                 varchar(255),
   password                  varchar(255),
@@ -24,6 +26,7 @@ create table answer (
   selected_answer           varchar(255),
   correct_answer            varchar(255),
   un_answer                 varchar(255),
+  points                    integer,
   constraint uq_answer_question_id unique (question_id),
   constraint pk_answer primary key (id))
 ;

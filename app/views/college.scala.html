@@ -1,13 +1,20 @@
+@(admin:models.Admin)
+<form action = "@routes.AdminController.saveCollege()"  method="POST"> 
+ <select id="id" name="adminId" >
+  
+ <option value=0>select the admin</option>
 
-<form action = "@routes.CollegeController.saveCollege()"  method="POST"> 
 
-@session().get("adminId")
-<input type="hidden" value=@session().get("adminId")>
+<option value=@admin.id>@admin.userName</option>
+
+</select>
+
+
 Enter name:<input type="text" name="collegeName">
  Address:<input type="text" name="address">   
     
         <input type="submit" value="submit">
-    </p>
+    
     
     
 </form>
