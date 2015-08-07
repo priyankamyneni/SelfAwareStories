@@ -1,0 +1,27 @@
+<table border=1>
+<tr>
+
+<th>collegeid</th>
+<th>collegename</th>
+<th>address</th>
+<th>option1</th>
+<th>option2</th>
+
+</tr>
+<tr>
+
+@for(clg<- models.College.find.all()){
+
+
+<td>@clg.id</td>
+<form action="@routes.AdminController.updateCollege(clg.id)" method="POST">
+<input type="hidden" name="collegeId" value="@clg.id">
+<td><input type="text" name="collegeName" value="@clg.name"></td>
+<td><input type="text" name="address" value="@clg.address"></td>
+<td><input type="submit" value="update"></form></td>
+<td><a href="@routes.AdminController.deleteCollege(clg.id)">delete</a></td>
+</tr>
+}
+</table>
+
+
