@@ -1,0 +1,16 @@
+@*@(ques:models.Questionarie)
+
+<form action="@routes.Application.saveQuestion()" method="POST">
+Question :<input type="text" name="name">
+Option1 :<input type="text" name="option1">
+Option2 :<input type="text" name="option2">
+Option3 :<input type="text" name="option3">
+Option4 :<input type="text" name="option4">
+correctAnswer<input type="text" name="correctAnswer">
+
+
+<input type="hidden" name="qid" value="@ques.qid">
+<input type="submit" value="submit">
+
+
+</form>*@

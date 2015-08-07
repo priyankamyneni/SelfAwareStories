@@ -1,0 +1,21 @@
+
+<html>
+
+<body>
+<form action="@routes.QuestionController.saveQuestion()" method="post">
+ <select name="qid">@for(ques<-models.Questionarie.find.all()){
+	<option value="@ques.id">@ques.name</option>
+}</select>
+
+Question :<input type="text" name="name">
+Option1 :<input type="text" name="option1">
+Option2 :<input type="text" name="option2">
+Option3 :<input type="text" name="option3">
+Option4 :<input type="text" name="option4">
+correctAnswer<input type="text" name="correctAnswer">
+
+<input type="submit" value="submit">
+</form>
+
+</body>
+</html>

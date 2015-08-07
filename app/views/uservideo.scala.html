@@ -1,0 +1,33 @@
+@(user:java.util.List[AppUser],video:java.util.List[Video])
+
+<html>
+
+<form action="@routes.UserVideoController.saveUserVideo()" method="POST"><br>
+
+<table cellpadding="5" align="center">
+<tr align="center">
+<td >User id:</td><td> <select name="userId">@for(appUser<-user){
+	<option value="@appUser.id">@appUser.firstName</option>
+}</select>
+</td>
+</tr>
+
+
+<tr align="center">
+<td>Video id:</td><td> <select name="videoId">@for(v<-video){
+	<option value="@v.id">@v.name</option>
+}</select>
+</td>
+</tr>
+
+<tr>
+<td colspan="2" align="center">
+<input type="submit" value="submit">
+</td>
+</tr>
+
+</table>
+
+</form>
+
+</html>

@@ -1,0 +1,33 @@
+@(videoList:java.util.List[Video],questionarieList:java.util.List[Questionarie])
+
+<html>
+
+<form action="@routes.VideoQuestionarieController.saveVideoQuestionarie()" method="POST"><br>
+
+<table cellpadding="5" align="center">
+<tr align="center">
+<td >video id:</td><td> <select name="videoId">@for(video<-videoList){
+	<option value="@video.id">@video.name</option>
+}</select>
+</td>
+</tr>
+
+
+<tr align="center">
+<td>Questioanrie id:</td><td> <select name="questionarieId">@for(questionarie<-questionarieList){
+	<option value="@questionarie.id">@questionarie.name</option>
+}</select>
+</td>
+</tr>
+
+<tr>
+<td colspan="2" align="center">
+<input type="submit" value="submit">
+</td>
+</tr>
+
+</table>
+
+</form>
+
+</html>

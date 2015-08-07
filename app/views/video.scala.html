@@ -1,0 +1,16 @@
+<html>
+<body>
+<form action="@routes.VideoController.insertVideo()" method="POST">
+VimeoCode:<input type="text" name="vimeoCode"><br>
+name:<input type="text" name="name"><br>
+
+<select name="typeOfVideo">
+	<option value="situation">situation Video</option>
+	<option value="coping">copping Video</option>
+	</select><br>
+
+description<input type="text" name="description"><br>
+<input type="submit" value="submit">
+</form>
+</body>
+</html>

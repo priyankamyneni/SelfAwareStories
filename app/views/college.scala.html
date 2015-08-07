@@ -1,0 +1,15 @@
+
+<form action = "@routes.CollegeController.saveCollege()"  method="POST"> 
+
+@session().get("adminId")
+<input type="hidden" value=@session().get("adminId")>
+Enter name:<input type="text" name="collegeName">
+ Address:<input type="text" name="address">   
+    
+        <input type="submit" value="submit">
+    </p>
+    
+    
+</form>
+
+

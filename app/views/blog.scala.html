@@ -1,0 +1,15 @@
+<form action="@routes.BlogController.saveBlog()" method="post">
+User id: <select name="userId">@for(appUser<-models.AppUser.find.all()){
+	<option value="@appUser.id">@appUser.firstName</option>
+}</select><br>
+
+
+
+
+
+Blog name:<input type="text" name="name">
+desscription<input type="text" name="description">
+<input type="submit" value="submit">
+
+
+</form>
